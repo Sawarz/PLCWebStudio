@@ -9,8 +9,6 @@ export default function Wire({ on }: Props) {
 		<div
 			style={{ backgroundColor: on ? "green" : "black" }}
 			className={styles.wire}
-		>
-			Wire
-		</div>
+		/>
 	);
 }
