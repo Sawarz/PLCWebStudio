@@ -1,0 +1,11 @@
+.divider {
+    width: 100vw;
+    height: 1px;
+    background-color: black;
+    margin-block: 20px;
+}
+
+.elements {
+    display: flex;
+    gap: 20px;
+}
