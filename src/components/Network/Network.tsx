@@ -4,13 +4,12 @@ import Coil from "../PLCElements/Coil/Coil";
 import styles from "./Network.module.css";
 import Wire from "../PLCElements/Wire/Wire";
 
-type NetworkProps = {
+type Props = {
 	id: string;
 	deleteNetwork: Function;
 };
 
-export default function Network(props: NetworkProps) {
-	const { id, deleteNetwork } = props;
+export default function Network({ id, deleteNetwork }: Props) {
 	const [PLCData, setPLCData] = useState([
 		{
 			element: "coil",
