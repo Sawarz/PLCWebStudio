@@ -24,7 +24,7 @@ export default function Network({ id: networkId, deleteNetwork }: Props) {
 			<div className={styles.elements}>
 				{elements.map(
 					(
-						{ type, on, id }: { type: string; on: any; id: number },
+						{ type, id }: { type: string; on: any; id: number },
 						i: number
 					) => {
 						if (type === "wire") {

@@ -1,4 +1,3 @@
-import { MouseEventHandler } from "react";
 import styles from "./Coil.module.css";
 
 type Props = {
