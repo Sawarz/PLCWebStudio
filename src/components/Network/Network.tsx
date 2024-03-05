@@ -1,63 +1,68 @@
-import { useState } from "react";
 import Contact from "../PLCElements/Contact/Contact";
 import Coil from "../PLCElements/Coil/Coil";
 import styles from "./Network.module.css";
 import Wire from "../PLCElements/Wire/Wire";
+import { useNetworksStore } from "../../stores/NetworksStore";
 
 type Props = {
 	id: string;
 	deleteNetwork: Function;
 };
 
-export default function Network({ id, deleteNetwork }: Props) {
-	const [PLCData, setPLCData] = useState([
-		{
-			element: "coil",
-			on: true,
-		},
-		{
-			element: "contact",
-		},
-		{
-			element: "coil",
-			on: false,
-		},
-	]);
+export default function Network({ id: networkId, deleteNetwork }: Props) {
+	const { networksData, switchContact } = useNetworksStore(
+		(state: any) => state
+	);
 
-	function handleCoilClick(i: number) {
-		const newPLCData = [...PLCData];
-		newPLCData[i].on = !newPLCData[i].on;
-		setPLCData(newPLCData);
-	}
+	const { elements } = networksData.find(
+		({ id: currentNetworkId }: { id: string }) =>
+			currentNetworkId === networkId
+	);
 
 	return (
 		<div>
 			<div className={styles.elements}>
-				<Wire on={PLCData[0]?.on} />
-				{PLCData.map(({ element, on }, i) => {
-					if (element === "coil") {
-						return (
-							<>
-								<Coil
-									on={on}
-									onClick={() => handleCoilClick(i)}
+				{elements.map(
+					(
+						{ type, on, id }: { type: string; on: any; id: number },
+						i: number
+					) => {
+						if (type === "wire") {
+							return (
+								<Wire
+									on={
+										i === 0
+											? elements[i + 1]?.on
+											: elements[i - 1]?.on
+									}
+									id={id}
+									key={id}
 								/>
-								<Wire on={PLCData[i]?.on} />
-							</>
-						);
-					}
+							);
+						}
 
-					if (element === "contact") {
-						return (
-							<>
-								<Contact on={PLCData[i - 1].on} />
-								<Wire on={PLCData[i - 1]?.on} />
-							</>
-						);
+						if (type === "coil") {
+							return (
+								<Coil
+									on={elements[i - 2]?.on}
+									key={id}
+								/>
+							);
+						}
+
+						if (type === "contact") {
+							return (
+								<Contact
+									onClick={() => switchContact(networkId, id)}
+									on={elements[i]?.on}
+									key={id}
+								/>
+							);
+						}
 					}
-				})}
+				)}
 			</div>
-			<button onClick={() => deleteNetwork(id)}>X</button>
+			<button onClick={() => deleteNetwork(networkId)}>X</button>
 		</div>
 	);
 }

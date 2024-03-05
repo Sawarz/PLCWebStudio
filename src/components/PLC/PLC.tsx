@@ -1,36 +1,47 @@
 import Network from "../Network/Network";
-import { useState } from "react";
-import { v4 } from "uuid";
+import Toolbar from "../Toolbar/Toolbar";
+import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import { useNetworksStore } from "../../stores/NetworksStore";
 
 export default function PLC() {
-	const [networksIDs, setNetworksIDs] = useState<string[]>([]);
+	const { networksData, addNetwork, deleteNetwork } = useNetworksStore(
+		(state: any) => state
+	);
 
-	function addNetwork() {
-		const currentID = v4();
-		setNetworksIDs([...networksIDs, currentID]);
-	}
+	const { addElement } = useNetworksStore((state: any) => state);
 
-	function deleteNetwork(id: string) {
-		const networkIndex = networksIDs.findIndex(
-			(networkID) => networkID === id
-		);
-		const newNetworkIDs = [...networksIDs];
-		newNetworkIDs.splice(networkIndex, 1);
-		setNetworksIDs(newNetworkIDs);
+	function handleDragEnd({ active, over }: DragEndEvent) {
+		if (over) {
+			const {
+				data: { current },
+			} = active;
+			const { id } = over;
+			const networkData = networksData.find(
+				({ elements }: { elements: [] }) =>
+					elements.find(
+						({ id: elementId }: { id: string }) => elementId === id
+					)
+			);
+
+			if (current) {
+				addElement(networkData, id, current.type);
+			}
+		}
 	}
 
 	return (
-		<div>
-			<div>PLC</div>
+		<DndContext onDragEnd={handleDragEnd}>
+			<Toolbar />
 			<button onClick={addNetwork}>Add Network</button>
-			{networksIDs.map((networkID) => {
+			{networksData.map(({ id }: { id: string }) => {
 				return (
 					<Network
-						id={networkID}
+						id={id}
 						deleteNetwork={deleteNetwork}
+						key={id}
 					/>
 				);
 			})}
-		</div>
+		</DndContext>
 	);
 }

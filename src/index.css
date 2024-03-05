@@ -9,7 +9,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body, #root {
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
   margin: 0;
   padding: 0;
 }
