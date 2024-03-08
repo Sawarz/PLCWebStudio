@@ -1,0 +1,9 @@
+.scene {
+    max-width: 1000px;
+    max-height: 500px;
+
+    canvas {
+        width: 800px !important;
+        height: unset !important;
+    }
+}
