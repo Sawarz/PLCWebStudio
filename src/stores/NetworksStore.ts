@@ -2,13 +2,16 @@ import { create } from 'zustand';
 import { v4 } from 'uuid';
 
 export type NetworksStore = {
-  networksData: [any]
+  networksData: [any],
+  addNetwork: () => void,
+  deleteNetwork: (id: number) => void,
+  addElement: ({ id, elements }: { id: string, elements: [{ id: string, type: string, on: boolean }] }) => void,
+  switchContact: (networkId: string, id: string) => void
 }
 
 export const useNetworksStore = create((set) => ({
     networksData: [],
     addNetwork: () => set(({ networksData }: NetworksStore) => {
-      console.log(networksData);
       return ({ state: networksData.push({ id: v4(), elements: [
         {
           type: 'wire',
@@ -48,4 +51,4 @@ export const useNetworksStore = create((set) => ({
 
       return ({ state: networksData })
     })
-  }))
+  }));
