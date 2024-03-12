@@ -11,7 +11,6 @@ export default function Scene3D({}: Props) {
 		if (!canvasRef.current) return;
 
 		if (canvasRef.current) {
-			console.log(canvasRef.current);
 			canvasRef.current.appendChild(renderer.domElement);
 		}
 

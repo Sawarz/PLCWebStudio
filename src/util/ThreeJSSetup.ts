@@ -31,9 +31,7 @@ function loadPlayerModel(scene: any, modelPath: any, playerModel: any) {
 			playerModel.push(model);
 			playerModel.push(gltf);
 		},
-		function (xhr) {
-			console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-		},
+		function (xhr) {},
 		function (error) {
 			console.error(error);
 		}
