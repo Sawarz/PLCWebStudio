@@ -31,7 +31,7 @@ function loadPlayerModel(scene: any, modelPath: any, playerModel: any) {
 			playerModel.push(model);
 			playerModel.push(gltf);
 		},
-		function (xhr) {},
+		function () {},
 		function (error) {
 			console.error(error);
 		}
