@@ -1,5 +1,5 @@
-import DraggableCoil from "../draggables/DraggableCoil/DraggableCoil";
-import DraggableContact from "../draggables/DraggableContact/DraggableContact";
+import DraggableCoil from "@/components/draggables/DraggableCoil/DraggableCoil";
+import DraggableContact from "@/components/draggables/DraggableContact/DraggableContact";
 import styles from "./Toolbar.module.css";
 
 type Props = {};

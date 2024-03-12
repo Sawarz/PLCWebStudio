@@ -1,4 +1,4 @@
-import { useVariableStore } from "../../stores/VariableStore";
+import { useVariableStore } from "@/stores/VariableStore";
 import styles from "./Variables.module.css";
 
 type Props = {};

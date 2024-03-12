@@ -1,7 +1,7 @@
-import Network from "../Network/Network";
-import Toolbar from "../Toolbar/Toolbar";
+import Network from "@/components/Network/Network";
+import Toolbar from "@/components/Toolbar/Toolbar";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
-import { useNetworksStore } from "../../stores/NetworksStore";
+import { useNetworksStore } from "@/stores/NetworksStore";
 
 export default function PLC() {
 	const { networksData, addNetwork, deleteNetwork } = useNetworksStore(

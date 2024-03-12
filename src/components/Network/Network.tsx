@@ -1,8 +1,8 @@
-import Contact from "../PLCElements/Contact/Contact";
-import Coil from "../PLCElements/Coil/Coil";
+import Contact from "@/components/PLCElements/Contact/Contact";
+import Coil from "@/components/PLCElements/Coil/Coil";
 import styles from "./Network.module.css";
-import Wire from "../PLCElements/Wire/Wire";
-import { useNetworksStore } from "../../stores/NetworksStore";
+import Wire from "@/components/PLCElements/Wire/Wire";
+import { useNetworksStore } from "@/stores/NetworksStore";
 
 type Props = {
 	id: string;

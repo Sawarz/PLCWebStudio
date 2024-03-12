@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { animate, renderer } from "../../util/ThreeJSSetup";
+import { animate, renderer } from "@/util/ThreeJSSetup";
 import styles from "./Scene3D.module.css";
 
 type Props = {};
