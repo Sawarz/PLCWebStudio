@@ -1,15 +1,18 @@
-import { useVariableStore } from "@/stores/VariableStore";
+import { useState } from "react";
 import styles from "./Variables.module.css";
+import { useVariableStore } from "@/stores/VariableStore";
+import VariableAddModal from "../VariableAddModal/VariableAddModal";
 
 type Props = {};
 
 export default function Variables({}: Props) {
-	const { variables, addVariable } = useVariableStore((state: any) => state);
+	const [modalOpen, setModalOpen] = useState(false);
+	const { variables } = useVariableStore((state: any) => state);
 
 	return (
 		<div className={styles.variables}>
 			<button
-				onClick={() => addVariable({ id: "1", name: "test", value: 0 })}
+				onClick={() => setModalOpen(true)}
 				className={styles.addVariableButton}
 			>
 				Add Variable
@@ -31,6 +34,9 @@ export default function Variables({}: Props) {
 						</div>
 					);
 				}
+			)}
+			{modalOpen && (
+				<VariableAddModal closeModal={() => setModalOpen(false)} />
 			)}
 		</div>
 	);
