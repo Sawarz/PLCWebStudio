@@ -3,6 +3,8 @@ import Coil from "@/components/PLCElements/Coil/Coil";
 import styles from "./Network.module.css";
 import Wire from "@/components/PLCElements/Wire/Wire";
 import { useNetworksStore } from "@/stores/NetworksStore";
+import { useState } from "react";
+import ModifyElementModal from "@/components/modals/ModifyElementModal/ModifyElementModal";
 
 type Props = {
 	id: string;
@@ -10,9 +12,8 @@ type Props = {
 };
 
 export default function Network({ id: networkId, deleteNetwork }: Props) {
-	const { networksData, switchContact } = useNetworksStore(
-		(state: any) => state
-	);
+	const [modifiedElement, setModifiedElement] = useState("noelement");
+	const { networksData } = useNetworksStore((state: any) => state);
 
 	const { elements } = networksData.find(
 		({ id: currentNetworkId }: { id: string }) =>
@@ -24,7 +25,7 @@ export default function Network({ id: networkId, deleteNetwork }: Props) {
 			<div className={styles.elements}>
 				{elements.map(
 					(
-						{ type, id }: { type: string; on: any; id: number },
+						{ type, id }: { type: string; on: any; id: string },
 						i: number
 					) => {
 						if (type === "wire") {
@@ -44,6 +45,7 @@ export default function Network({ id: networkId, deleteNetwork }: Props) {
 						if (type === "coil") {
 							return (
 								<Coil
+									onClick={() => setModifiedElement(id)}
 									on={elements[i - 2]?.on}
 									key={id}
 								/>
@@ -53,7 +55,7 @@ export default function Network({ id: networkId, deleteNetwork }: Props) {
 						if (type === "contact") {
 							return (
 								<Contact
-									onClick={() => switchContact(networkId, id)}
+									onClick={() => setModifiedElement(id)}
 									on={elements[i]?.on}
 									key={id}
 								/>
@@ -63,6 +65,13 @@ export default function Network({ id: networkId, deleteNetwork }: Props) {
 				)}
 			</div>
 			<button onClick={() => deleteNetwork(networkId)}>X</button>
+			{modifiedElement !== "noelement" && (
+				<ModifyElementModal
+					elementId={modifiedElement}
+					networkId={networkId}
+					closeModal={() => setModifiedElement("noelement")}
+				/>
+			)}
 		</div>
 	);
 }
