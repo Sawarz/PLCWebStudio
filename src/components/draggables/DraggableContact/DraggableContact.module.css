@@ -3,4 +3,5 @@
     width: 20px;
     border-inline: 5px solid white;
     background-color: #101114;
+    cursor: grab;
 }
