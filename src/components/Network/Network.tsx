@@ -47,6 +47,7 @@ export default function Network({ id: networkId, deleteNetwork }: Props) {
 								<Coil
 									onClick={() => setModifiedElement(id)}
 									on={elements[i - 2]?.on}
+									id={id}
 									key={id}
 								/>
 							);
