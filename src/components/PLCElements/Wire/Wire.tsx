@@ -3,7 +3,7 @@ import styles from "./Wire.module.css";
 
 type Props = {
 	on: boolean | undefined;
-	id: number;
+	id: string;
 };
 
 export default function Wire({ on, id }: Props) {
