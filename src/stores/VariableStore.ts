@@ -1,9 +1,16 @@
 import { create } from 'zustand';
 
-type Variable = {
+export enum Type {
+    Boolean = 'boolean',
+    String ='string',
+    Int = 'int'
+}
+
+export type Variable = {
     id: string;
     name: string;
     value: number;
+    type: Type
 };
 
 export type VariablesStore = {
