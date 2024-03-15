@@ -50,5 +50,16 @@ export const useNetworksStore = create((set) => ({
       networksData[indexOfNetwork].elements = newElements;
 
       return ({ state: networksData })
-    })
+    }),
+    modifyElement: ({ networkId, id, variableName }: { networkId: string, id: string, variableName: string }) => set(({ networksData }: NetworksStore) => {
+      const indexOfNetwork = networksData.findIndex(({ id: currentNetworkId }) => currentNetworkId === networkId);
+      const indexOfElement = networksData[indexOfNetwork].elements.findIndex(({ id: elementId }: { id: string }) => elementId === id);
+
+      const chosenElement = networksData[indexOfNetwork].elements[indexOfElement];
+      networksData[indexOfNetwork].elements[indexOfElement] = { ...chosenElement, variableName };
+
+      console.log(networksData[indexOfNetwork].elements[indexOfElement]);
+
+      return ({ state: networksData })
+    }),
   }));
