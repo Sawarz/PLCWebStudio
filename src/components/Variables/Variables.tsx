@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styles from "./Variables.module.css";
 import { useVariableStore } from "@/stores/VariableStore";
-import VariableAddModal from "../VariableAddModal/VariableAddModal";
+import VariableAddModal from "@/components/modals/VariableAddModal/VariableAddModal";
+import { Variable } from "@/stores/VariableStore";
 
 type Props = {};
 
@@ -17,24 +18,15 @@ export default function Variables({}: Props) {
 			>
 				Add Variable
 			</button>
-			{variables.map(
-				({
-					id,
-					name,
-					value,
-				}: {
-					id: string;
-					name: string;
-					value: number;
-				}) => {
-					return (
-						<div key={id}>
-							<p>{name}</p>
-							<p>{value}</p>
-						</div>
-					);
-				}
-			)}
+			{variables.map(({ id, name, value, type }: Variable) => {
+				return (
+					<div key={id}>
+						<p>{name}</p>
+						<p>{value}</p>
+						<p>{type}</p>
+					</div>
+				);
+			})}
 			{modalOpen && (
 				<VariableAddModal closeModal={() => setModalOpen(false)} />
 			)}
