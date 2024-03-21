@@ -18,7 +18,6 @@ export default function Variables({}: Props) {
 		e: React.ChangeEvent<HTMLInputElement>,
 		variable: Variable
 	) {
-		console.log(e.target.checked);
 		const newVariable = {
 			...variable,
 			[e.target.name]:
