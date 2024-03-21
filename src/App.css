@@ -11,6 +11,12 @@ body {
   overflow: hidden;
 }
 
-
+.main-container {
+  display: flex;
+  height: 90vh;
+  max-height: 90%;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 

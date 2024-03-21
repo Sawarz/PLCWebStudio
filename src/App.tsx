@@ -7,11 +7,13 @@ import Variables from "./components/Variables/Variables";
 
 function App() {
 	return (
-		<div>
-			<Header />
-			<PLC />
+		<div className='main-container'>
+			<div className='main-content'>
+				<Header />
+				<PLC />
+				<Variables />
+			</div>
 			<Scene3D />
-			<Variables />
 		</div>
 	);
 }
