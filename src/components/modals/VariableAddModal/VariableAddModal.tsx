@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Type, useVariableStore } from "@/stores/VariableStore";
+import { useVariableStore } from "@/stores/VariableStore";
 import { v4 } from "uuid";
 import ValueInput from "@/components/ValueInput/ValueInput";
 import styles from "./VariableAddModal.module.css";
+import { Type } from "@/types/VariableEnum";
 
 type Props = {
 	closeModal: () => void;
@@ -11,7 +12,7 @@ type Props = {
 export default function VariableAddModal({ closeModal }: Props) {
 	const { addVariable } = useVariableStore((state: any) => state);
 	const [name, setName] = useState<string>();
-	const [value, setValue] = useState<string>();
+	const [value, setValue] = useState<Type>();
 	const [type, setType] = useState<Type>(Type.Boolean);
 
 	return (

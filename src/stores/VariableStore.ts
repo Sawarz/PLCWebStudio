@@ -1,20 +1,18 @@
 import { create } from 'zustand';
-
-export enum Type {
-    Boolean = 'boolean',
-    String ='string',
-    Int = 'int'
-}
+import { Type } from '@/types/VariableEnum';
 
 export type Variable = {
     id: string;
     name: string;
-    value: number;
+    value: boolean | number | string;
     type: Type
 };
 
 export type VariablesStore = {
     variables: Variable[];
+    addVariable: (variable: Variable) => void;
+    removeVariable: (id: string) => void;
+    modifyVariable: (variable: Variable) => void;
 };
 
 export const useVariableStore = create((set) => ({
@@ -29,4 +27,9 @@ export const useVariableStore = create((set) => ({
             variables: variables.filter((variable) => variable.id !== id),
         }));
     },
+    modifyVariable: (variable: Variable) => {
+        set(({ variables }: VariablesStore) => ({
+            variables: variables.map((v) => (v.id === variable.id ? variable : v)),
+        }));
+    }
 }));

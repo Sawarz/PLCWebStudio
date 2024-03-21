@@ -9,6 +9,11 @@
     min-width: 200px;
 }
 
+.variable {
+    display: flex;
+    flex-direction: row;
+}
+
 .addVariableButton {
     background-color: #4CAF50;
     border: none;

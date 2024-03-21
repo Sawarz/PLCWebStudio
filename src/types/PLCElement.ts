@@ -1,5 +1,8 @@
+import { ElementType } from "@/types/ElementEnum";
+
 export type PLCElement = {
-    input: boolean,
-    output: boolean
-    type: string
+    on: boolean,
+    id: string,
+    type: ElementType,
+    variableName?: string
 };

@@ -1,0 +1,15 @@
+.elementWrapper {
+    position: relative;
+}
+.variable {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: -20px;
+    min-height: 16px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: white;
+}

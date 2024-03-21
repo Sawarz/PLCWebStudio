@@ -1,10 +1,9 @@
-import Contact from "@/components/PLCElements/Contact/Contact";
-import Coil from "@/components/PLCElements/Coil/Coil";
 import styles from "./Network.module.css";
-import Wire from "@/components/PLCElements/Wire/Wire";
 import { useNetworksStore } from "@/stores/NetworksStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModifyElementModal from "@/components/modals/ModifyElementModal/ModifyElementModal";
+import ElementWrapper from "../PLCElements/ElementWrapper/ElementWrapper";
+import { PLCElement } from "@/types/PLCElement";
 
 type Props = {
 	id: string;
@@ -13,57 +12,33 @@ type Props = {
 
 export default function Network({ id: networkId, deleteNetwork }: Props) {
 	const [modifiedElement, setModifiedElement] = useState("noelement");
-	const { networksData } = useNetworksStore((state: any) => state);
+	const { networksData, calculateNetwork } = useNetworksStore(
+		(state: any) => state
+	);
 
 	const { elements } = networksData.find(
 		({ id: currentNetworkId }: { id: string }) =>
 			currentNetworkId === networkId
 	);
 
+	useEffect(() => {
+		setInterval(() => {
+			calculateNetwork(networkId);
+		}, 50);
+	}, [networkId, calculateNetwork]);
+
 	return (
 		<div>
 			<div className={styles.elements}>
-				{elements.map(
-					(
-						{ type, id }: { type: string; on: any; id: string },
-						i: number
-					) => {
-						if (type === "wire") {
-							return (
-								<Wire
-									on={
-										i === 0
-											? elements[i + 1]?.on
-											: elements[i - 1]?.on
-									}
-									id={id}
-									key={id}
-								/>
-							);
-						}
-
-						if (type === "coil") {
-							return (
-								<Coil
-									onClick={() => setModifiedElement(id)}
-									on={elements[i - 2]?.on}
-									id={id}
-									key={id}
-								/>
-							);
-						}
-
-						if (type === "contact") {
-							return (
-								<Contact
-									onClick={() => setModifiedElement(id)}
-									on={elements[i]?.on}
-									key={id}
-								/>
-							);
-						}
-					}
-				)}
+				{elements.map(({ id }: PLCElement, i: number) => {
+					return (
+						<ElementWrapper
+							onClick={() => setModifiedElement(id)}
+							id={id}
+							key={i}
+						/>
+					);
+				})}
 			</div>
 			<button onClick={() => deleteNetwork(networkId)}>X</button>
 			{modifiedElement !== "noelement" && (
