@@ -4,6 +4,7 @@ import ElementRenderer from "../ElementRenderer/ElementRenderer";
 import styles from "./ElementWrapper.module.css";
 import { ElementType } from "@/types/ElementEnum";
 import useDebounce from "@/util/useDebounce";
+import { useVariableStore } from "@/stores/VariableStore";
 
 type Props = {
 	id: string;
@@ -15,6 +16,10 @@ export default function ElementWrapper({ id, onClick }: Props) {
 	const debouncedVariable = useDebounce(variable, 500);
 	const { networksData, modifyElement } = useNetworksStore(
 		(state: any) => state
+	);
+	const { variables } = useVariableStore((state: any) => state);
+	const isVariablePresent = variables.find(
+		({ name }: { name: string }) => name === variable
 	);
 	const networkData = networksData.find(({ elements }: { elements: [] }) =>
 		elements.find(({ id: elementId }: { id: string }) => elementId === id)
@@ -68,6 +73,7 @@ export default function ElementWrapper({ id, onClick }: Props) {
 			{type !== ElementType.Wire && (
 				<input
 					className={styles.variable}
+					style={{ color: isVariablePresent ? "white" : "red" }}
 					type='text'
 					onClick={(e) => handleInputClick(e)}
 					onBlur={(e) => handleInputBlur(e)}
