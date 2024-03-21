@@ -2,6 +2,7 @@ import { MouseEventHandler, useState } from "react";
 import { useNetworksStore } from "@/stores/NetworksStore";
 import ElementRenderer from "../ElementRenderer/ElementRenderer";
 import styles from "./ElementWrapper.module.css";
+import { ElementType } from "@/types/ElementEnum";
 
 type Props = {
 	id: string;
@@ -27,10 +28,13 @@ export default function ElementWrapper({ id, onClick }: Props) {
 		}
 	}
 
+	const { type } = element;
+
 	return (
 		<div
 			className={styles.elementWrapper}
-			onClick={onClick}
+			onClick={type !== ElementType.Wire ? onClick : undefined}
+			style={{ cursor: type !== ElementType.Wire ? "pointer" : "auto" }}
 		>
 			<div className={styles.variable}>{variable}</div>
 			<ElementRenderer element={element} />
