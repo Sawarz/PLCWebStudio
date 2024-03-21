@@ -22,9 +22,11 @@ export default function Network({ id: networkId, deleteNetwork }: Props) {
 	);
 
 	useEffect(() => {
-		setInterval(() => {
+		const plcCalculator = setInterval(() => {
 			calculateNetwork(networkId);
 		}, 50);
+
+		return () => clearInterval(plcCalculator);
 	}, [networkId, calculateNetwork]);
 
 	return (
